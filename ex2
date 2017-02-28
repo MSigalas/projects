@@ -1,0 +1,35 @@
+str = raw_input("Give a string: ")
+
+open_par = 0
+clos_par = 0
+correct_char = True
+open_more_or_equal = True
+correct_sequence = True
+if str [0] == ")" or str [-1] == "(" :
+	print("Wrong sequence: unable to close brackets at the beginning or the end.")
+	correct_sequence = False
+for i in range(len(str)) :
+	if str [i] != "(" and str [i] != ")" :
+		correct_char = False
+		correct_sequence = False
+	if str [i] == "(" :
+		open_par+=1
+	if str [i] == ")" :
+		clos_par+=1
+	if clos_par > open_par :
+		open_more_or_equal = False
+		correct_sequence = False
+		
+if open_par != clos_par :
+	print("Wrong sequence: brackets uneven.")
+	correct_sequence = False
+if correct_char == False :
+	print("Wrong sequence: not every character is a bracket.")
+	correct_sequence = False
+if open_more_or_equal == False :
+	print("Wrong sequence: unable to close all the brackets.")
+	correct_sequence = False	
+if correct_sequence == True :
+	print("Sequence is correct!")
+	
+exiting = raw_input("Enter any key to quit. ")
