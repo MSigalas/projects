@@ -1,0 +1,22 @@
+import urllib2
+import json
+#import requests
+opening_input = raw_input("This code doesn't function properly :( ")
+random_beer = urllib2.urlopen('https://api.punkapi.com/v2/beers/random')
+html = random_beer.read()
+dictionary = {}
+dictionary["name"] = json.loads(html)["name"]
+dictionary["tagline"] = json.loads(html)["tagline"]
+dictionary["description"] = json.loads(html)["description"]
+initial_text = (name,tagline,description)
+print initial_text
+asd = raw_input("e")
+
+def send_a_beer():
+    return requests.post(
+        "htps://api.mailgun.net/v3/sandboxa99895715fa249d8abb3b872898c2dd7.mailgun.org/messages",
+        auth=("api", "key-d971ef34fe87ea5bc26c3bd290bc4438"),
+        data={"from": "<mixalistennis@hotmail.com>",
+              "to": ["unipi@mailinator.com"],
+              "subject": "Beers!",
+              "text": "Your beer is called: "})
