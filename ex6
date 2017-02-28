@@ -1,0 +1,59 @@
+import urllib2
+import json
+
+num_input = raw_input("Give 7 numbers of your choice ranging from 0 to 9, separated by space. \nNot typing numbers causes the program to exit: ")
+nums = map(int, num_input.split())
+if len(nums) <= 6 or len(nums) >= 8 :
+	print("\nRetry. Remember to only choose 7 numbers.")
+	quitting = raw_input("Press/Type anything to leave.")
+	quit()
+print ("Your selected numbers are: \n"), nums
+total = 0
+total_jackpots = 0
+total_count = 0
+first_stop = raw_input(" Continue by pressing a key. \n")
+print ("For the month of February 2017, the game of PROTO has had the following results: ")
+for j in range(7) :
+	
+	response = urllib2.urlopen('http://applications.opap.gr/DrawsRestServices/proto/178%s.json'%j) #O mhnas periexei tis klhrwseis apo 1780 mexri kai 1787
+	html = response.read().strip(",")
+	win = json.loads(html)["draw"]["results"]
+	print ("Winning numbers: "), win
+	if nums == win :
+		total_jackpots += 1
+		total_count += 1
+		print (" This time you won the Jackpot! \n")
+	elif (nums[0] == win[0] and nums[1] == win[1] and nums[2] == win[2] and nums[3] == win[3] and nums[4] == win[4] and nums[5] == win[5]) or (nums[1] == win[1] and nums[2] == win[2] and nums[3] == win[3] and nums[4] == win[4] and nums[5] == win[5] and nums[6] == win[6]) :
+		total += 25000
+		total_count += 1
+		print (" This time you won 25000$! \n")
+	elif (nums[0] == win[0] and nums[1] == win[1] and nums[2] == win[2] and nums[3] == win[3] and nums[4] == win[4]) or (nums[2] == win[2] and nums[3] == win[3] and nums[4] == win[4] and nums[5] == win[5] and nums[6] == win[6]) : 
+		total += 2500
+		total_count += 1
+		print (" This time you won 2500$! \n")
+	elif (nums[0] == win[0] and nums[1] == win[1] and nums[2] == win[2] and nums[3] == win[3]) or (nums[3] == win[3] and nums[4] == win[4] and nums[5] == win[5] and nums[6] == win[6]) :
+		total += 250
+		total_count += 1
+		print (" This time you won 250$! \n")
+	elif (nums[0] == win[0] and nums[1] == win[1] and nums[2] == win[2]) or (nums[4] == win[4] and nums[5] == win[5] and nums[6] == win[6]) :
+		total += 25
+		total_count += 1
+		print (" This time you won 25$! \n")
+	elif (nums[0] == win[0] and nums[1] == win[1]) or (nums[5] == win[5] and nums[6] == win[6]) :
+		total += 2
+		total_count += 1
+		print (" This time you won 2$! \n")
+	else :
+		print (" Unlucky. \n")
+second_stop = raw_input(" Continue by pressing a key. \n")
+
+print ("Statistics for the month of February 2017: \n")		
+print ("Dollars earned, without jackpots:")
+print total
+print ("\nJackpots:")
+print total_jackpots
+print ("\nTotal wins:")
+print total_count
+print ("\nWell played!")
+
+leaving = raw_input("Press/Type anything to leave.")
